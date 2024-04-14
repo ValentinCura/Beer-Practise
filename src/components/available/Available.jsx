@@ -41,6 +41,7 @@ const Available = () => {
             <Count beers={availableBeers} />
 
         </div>
+        
     );
 }
 
