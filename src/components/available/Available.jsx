@@ -2,18 +2,29 @@ import React, { useState } from 'react';
 import { beers } from '../data/Data';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 import Count from '../count/Count';
-
+import NewBeer from '../newBeer/NewBeer'
 const Available = () => {
     const conversion = 1000;
 
+    
+    
+    const [totalBeers, setTotalBeers] = useState(beers)
+    
+    const  handleAddNewProduct = (newBeer) =>{
+      const newProduct = {
+        id: Math.random().toString(),
+        ...newBeer,
+    }
+      setTotalBeers((prevState) => [...prevState, newProduct]);
+    }
     const [filteredBeers, setFilteredBeers] = useState(false);
 
     const handleAvailableButton = () => {
         setFilteredBeers(!filteredBeers);
+        
     };
-
-    const availableBeers = filteredBeers ? beers.filter(beer => beer.available) : beers;
-
+    
+    const availableBeers = filteredBeers ? totalBeers.filter(beer => beer.available) : totalBeers;
     return (
         <div>
             <h1 className="text-light">Cervezas: </h1>
@@ -39,6 +50,7 @@ const Available = () => {
 
             <Button className="btn btn-secondary m-3" onClick={handleAvailableButton}>Filtrar solo disponible</Button>
             <Count beers={availableBeers} />
+            <NewBeer onHandleAddNewBeer = {handleAddNewProduct}/>
 
         </div>
 
